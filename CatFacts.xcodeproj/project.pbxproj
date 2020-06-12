@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		F964A16B2493809400874BFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F964A1692493809400874BFA /* Main.storyboard */; };
 		F964A16D2493809600874BFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F964A16C2493809600874BFA /* Assets.xcassets */; };
 		F964A1702493809600874BFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F964A16E2493809600874BFA /* LaunchScreen.storyboard */; };
+		F9FE18A52493855100D9DE47 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F9FE18A42493855100D9DE47 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		F964A16C2493809600874BFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F964A16F2493809600874BFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F964A1712493809600874BFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9FE18A42493855100D9DE47 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +58,13 @@
 				2275CF51C7F2FB6F9FE1E10A /* Pods-CatFacts.debug.xcconfig */,
 				EB93007B112AD9294F0D1C5C /* Pods-CatFacts.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		F964A1572493809300874BFA = {
 			isa = PBXGroup;
 			children = (
+				F9FE18A42493855100D9DE47 /* .swiftlint.yml */,
 				F964A1622493809300874BFA /* CatFacts */,
 				F964A1612493809300874BFA /* Products */,
 				DAFD53A12BBE4C8F3AD51D64 /* Pods */,
@@ -104,6 +106,7 @@
 				F964A15D2493809300874BFA /* Frameworks */,
 				F964A15E2493809300874BFA /* Resources */,
 				9280F4B209A3D2E56AB3EFC0 /* [CP] Embed Pods Frameworks */,
+				F9B9EB092493820A00AC4C31 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -152,6 +155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9FE18A52493855100D9DE47 /* .swiftlint.yml in Resources */,
 				F964A1702493809600874BFA /* LaunchScreen.storyboard in Resources */,
 				F964A16D2493809600874BFA /* Assets.xcassets in Resources */,
 				F964A16B2493809400874BFA /* Main.storyboard in Resources */,
@@ -199,6 +203,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CatFacts/Pods-CatFacts-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F9B9EB092493820A00AC4C31 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

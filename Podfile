@@ -13,4 +13,5 @@ target 'CatFacts' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'Alamofire'
+	inhibit_all_warnings!
 end
