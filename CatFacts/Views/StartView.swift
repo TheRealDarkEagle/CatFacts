@@ -19,7 +19,9 @@ class StartView: UIViewController {
         label.text = ""
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.textAlignment = .center
+        label.textAlignment = .left
+        label.sizeToFit()
+        label.backgroundColor = .cyan
         return label
     }()
     
@@ -36,6 +38,7 @@ class StartView: UIViewController {
     var moreFactsButton: UIButton = {
         var button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 250, height: 30)
+        button.backgroundColor  = .systemGray6
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return button
     }()
@@ -73,15 +76,15 @@ class StartView: UIViewController {
         
         catFactLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.centerY.equalTo(view.safeAreaLayoutGuide.snp.centerY).offset(50)
+            make.top.equalTo(image.snp.bottom).offset(50)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-30)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(30)
-            //make.top.equalTo(image.snp.bottom).offset(50)
         }
         
         moreFactsButton.snp.makeConstraints { make in
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.centerY.equalTo(view.safeAreaLayoutGuide.snp.centerY).offset(150)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-30)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
