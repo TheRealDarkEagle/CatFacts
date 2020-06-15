@@ -14,6 +14,11 @@ class CatDataModel {
     
     func getRandomFact() -> JSON {
         guard let dataArray = data?["all"].arrayValue else { return JSON() }
-        return dataArray[Int.random(in: 0 ..< dataArray.count)]
+        return getFact(number: Int.random(in: 0 ..< dataArray.count))
+    }
+    
+    private func getFact(number: Int) -> JSON {
+        guard let dataArray = data?["all"].arrayValue else { return JSON() }
+        return dataArray[number]
     }
 }

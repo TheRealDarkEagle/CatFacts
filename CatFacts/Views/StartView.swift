@@ -95,7 +95,7 @@ class StartView: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         catFactAuthor.snp.makeConstraints { make in
-            make.top.equalTo(catFactLabel.snp.bottom)
+            make.top.equalTo(catFactLabel.snp.bottom).offset(5)
             make.trailing.equalTo(catFactLabel.snp.trailing)
             make.leading.equalTo(catFactLabel.snp.leading)
         }
