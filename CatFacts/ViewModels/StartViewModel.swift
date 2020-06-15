@@ -30,13 +30,14 @@ struct StartViewModel {
             }
             self.isLoading.on(.next(false))
         }
-        buttonText.on(.next("Klicke hier für einen Cat-Fact!"))
+        buttonText.on(.next("Klicke für einen Cat-Fact!"))
     }
     
     func randomFact() {
         let fact = catDataModel.getRandomFact()
         catFactText.on(.next(getFactText(ofFact: fact)))
         catFactPublisher.on(.next(getPublisher(ofFact: fact)))
+        buttonText.on(.next("klicke für den nächsten Fakt!"))
     }
     
     // MARK: - Helper Functions
@@ -47,6 +48,7 @@ struct StartViewModel {
         else { return "" }
         return "\(lastName) \(firstName)"
     }
+    
     private func getFactText(ofFact fact: JSON) -> String {
         "\(fact["text"])"
     }

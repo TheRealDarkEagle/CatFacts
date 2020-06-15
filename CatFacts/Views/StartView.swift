@@ -61,11 +61,11 @@ class StartView: UIViewController {
     
     // MARK: - Setup Functions
     private func setupBindings() {
-        viewModel.catFactText.bind(to: catFactLabel.rx.text).disposed(by: disposeBag)
-        viewModel.buttonText.subscribe(onNext: { [weak self] text in
+        viewModel.catFactText.distinctUntilChanged().bind(to: catFactLabel.rx.text).disposed(by: disposeBag)
+        viewModel.buttonText.distinctUntilChanged().subscribe(onNext: { [weak self] text in
             self?.moreFactsButton.setTitle(text, for: .normal)
-            }).disposed(by: disposeBag)
-        viewModel.catFactPublisher.bind(to: catFactAuthor.rx.text).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
+        viewModel.catFactPublisher.distinctUntilChanged().bind(to: catFactAuthor.rx.text).disposed(by: disposeBag)
     }
     
     private func setup() {
@@ -93,6 +93,7 @@ class StartView: UIViewController {
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-30)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.width.equalTo(300)
         }
         catFactAuthor.snp.makeConstraints { make in
             make.top.equalTo(catFactLabel.snp.bottom).offset(5)

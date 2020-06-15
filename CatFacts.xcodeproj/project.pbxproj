@@ -109,8 +109,8 @@
 		F964A1622493809300874BFA /* CatFacts */ = {
 			isa = PBXGroup;
 			children = (
-				F90C216124974A4700AAEEAF /* ViewModels */,
 				F90C216224974A4E00AAEEAF /* Models */,
+				F90C216124974A4700AAEEAF /* ViewModels */,
 				F90C216024974A3D00AAEEAF /* Views */,
 				F964A1632493809300874BFA /* AppDelegate.swift */,
 				F964A1652493809300874BFA /* SceneDelegate.swift */,
