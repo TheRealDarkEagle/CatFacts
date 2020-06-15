@@ -21,7 +21,14 @@ class StartView: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .left
         label.sizeToFit()
-        label.backgroundColor = .cyan
+        return label
+    }()
+    
+    var catFactAuthor: UILabel = {
+        var label = UILabel(frame: CGRect(x: 50, y: 50, width: 60, height: 100))
+        label.text = ""
+        label.numberOfLines = 1
+        label.textAlignment = .right
         return label
     }()
     
@@ -53,12 +60,12 @@ class StartView: UIViewController {
     }
     
     // MARK: - Setup Functions
-    
     private func setupBindings() {
-        viewModel.catFact.bind(to: catFactLabel.rx.text).disposed(by: disposeBag)
+        viewModel.catFactText.bind(to: catFactLabel.rx.text).disposed(by: disposeBag)
         viewModel.buttonText.subscribe(onNext: { [weak self] text in
             self?.moreFactsButton.setTitle(text, for: .normal)
             }).disposed(by: disposeBag)
+        viewModel.catFactPublisher.bind(to: catFactAuthor.rx.text).disposed(by: disposeBag)
     }
     
     private func setup() {
@@ -66,6 +73,7 @@ class StartView: UIViewController {
         view.addSubview(image)
         view.addSubview(catFactLabel)
         view.addSubview(moreFactsButton)
+        view.addSubview(catFactAuthor)
         
         image.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
@@ -86,10 +94,14 @@ class StartView: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-30)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        catFactAuthor.snp.makeConstraints { make in
+            make.top.equalTo(catFactLabel.snp.bottom)
+            make.trailing.equalTo(catFactLabel.snp.trailing)
+            make.leading.equalTo(catFactLabel.snp.leading)
+        }
     }
     
     // MARK: - Button Target
-    
     @objc func buttonAction() {
         viewModel.randomFact()
     }

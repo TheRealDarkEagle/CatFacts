@@ -13,7 +13,8 @@ import SwiftyJSON
 struct StartViewModel {
     
     var buttonText = PublishSubject<String>()
-    var catFact = PublishSubject<String>()
+    var catFactText = PublishSubject<String>()
+    var catFactPublisher = PublishSubject<String>()
     var isLoading = PublishSubject<Bool>()
     let catDataModel = CatDataModel()
     
@@ -38,15 +39,15 @@ struct StartViewModel {
             self.isLoading.on(.next(false))
         }
         buttonText.on(.next("Klicke hier für einen Cat-Fact!"))
-        catFact.on(.next(""))
+        catFactText.on(.next(""))
     }
     
     func randomFact() {
         print("gathering random Cat Fact...")
         let fact = catDataModel.getRandomFact()
         print("\(fact)")
-        catFact.on(.next("\(fact["text"])"))
-        
+        catFactText.on(.next("\(fact["text"])"))
+        catFactPublisher.on(.next("\(fact["user"]["name"]["last"]) \(fact["user"]["name"]["first"])"))
     }
     
 }
