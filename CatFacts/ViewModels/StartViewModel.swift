@@ -12,45 +12,31 @@ import SwiftyJSON
 
 struct StartViewModel {
     // MARK: - Parameter
+    var catFact = PublishSubject<FactModel>()
     var buttonText = PublishSubject<String>()
-    var catFactText = PublishSubject<String>()
-    var catFactPublisher = PublishSubject<String>()
+    let catFactDataModel = CatFactDataModel()
     var isLoading = PublishSubject<Bool>()
-    let catDataModel = CatDataModel()
     
     // MARK: - RequestData Function
     func requestData() {
-        isLoading.on(.next(true))
+        isLoading.onNext(true)
+        buttonText.onNext("Just a Sec. Loading Data!")
         AF.request("https://cat-fact.herokuapp.com/facts").responseJSON { response in
             switch response.result {
             case .success(let data):
-                self.catDataModel.data = JSON(data)
+                self.catFactDataModel.data = JSON(data)
             case .failure(let error):
                 debugPrint(error)
             }
-            self.isLoading.on(.next(false))
+            self.isLoading.onNext(false)
+            self.buttonText.on(.next("Drück mich für einen Cat-Fact!"))
         }
-        buttonText.on(.next("Klicke für einen Cat-Fact!"))
+        
     }
     
-    func randomFact() {
-        let fact = catDataModel.getRandomFact()
-        catFactText.on(.next(getFactText(ofFact: fact)))
-        catFactPublisher.on(.next(getPublisher(ofFact: fact)))
-        buttonText.on(.next("klicke für den nächsten Fakt!"))
+    func publishRandomFact() {
+        let fact = catFactDataModel.getRandomFact()
+        catFact.on(.next(fact))
+        buttonText.on(.next("Drück mich für den nächsten Fakt!"))
     }
-    
-    // MARK: - Helper Functions
-    
-    private func getPublisher(ofFact fact: JSON) -> String {
-        guard let lastName = fact["user"]["name"]["last"].string,
-              let firstName = fact["user"]["name"]["first"].string
-        else { return "" }
-        return "\(lastName) \(firstName)"
-    }
-    
-    private func getFactText(ofFact fact: JSON) -> String {
-        "\(fact["text"])"
-    }
-    
 }
