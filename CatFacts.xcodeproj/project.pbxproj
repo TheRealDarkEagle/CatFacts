@@ -13,12 +13,11 @@
 		F9602C642498AE060075099B /* ReuseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9602C632498AE060075099B /* ReuseCell.swift */; };
 		F964A1642493809300874BFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F964A1632493809300874BFA /* AppDelegate.swift */; };
 		F964A1662493809300874BFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F964A1652493809300874BFA /* SceneDelegate.swift */; };
-		F964A1682493809300874BFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F964A1672493809300874BFA /* ViewController.swift */; };
 		F964A16D2493809600874BFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F964A16C2493809600874BFA /* Assets.xcassets */; };
 		F9C962EE24978E4400382795 /* CatFactDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C962ED24978E4400382795 /* CatFactDataModel.swift */; };
 		F9C962F024988D1E00382795 /* UserFactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C962EF24988D1E00382795 /* UserFactsView.swift */; };
 		F9C962F224988D6C00382795 /* UserFactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C962F124988D6C00382795 /* UserFactsViewModel.swift */; };
-		F9C962F4249893C800382795 /* FactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C962F3249893C800382795 /* FactModel.swift */; };
+		F9C962F4249893C800382795 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C962F3249893C800382795 /* Models.swift */; };
 		F9FE18A52493855100D9DE47 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F9FE18A42493855100D9DE47 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
@@ -32,13 +31,12 @@
 		F964A1602493809300874BFA /* CatFacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatFacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F964A1632493809300874BFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F964A1652493809300874BFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F964A1672493809300874BFA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F964A16C2493809600874BFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F964A1712493809600874BFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9C962ED24978E4400382795 /* CatFactDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatFactDataModel.swift; sourceTree = "<group>"; };
 		F9C962EF24988D1E00382795 /* UserFactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactsView.swift; sourceTree = "<group>"; };
 		F9C962F124988D6C00382795 /* UserFactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserFactsViewModel.swift; path = CatFacts/ViewModels/UserFactsViewModel.swift; sourceTree = SOURCE_ROOT; };
-		F9C962F3249893C800382795 /* FactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactModel.swift; sourceTree = "<group>"; };
+		F9C962F3249893C800382795 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		F9FE18A42493855100D9DE47 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				F9C962ED24978E4400382795 /* CatFactDataModel.swift */,
-				F9C962F3249893C800382795 /* FactModel.swift */,
+				F9C962F3249893C800382795 /* Models.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -134,7 +132,6 @@
 				F90C216024974A3D00AAEEAF /* Views */,
 				F964A1632493809300874BFA /* AppDelegate.swift */,
 				F964A1652493809300874BFA /* SceneDelegate.swift */,
-				F964A1672493809300874BFA /* ViewController.swift */,
 				F964A16C2493809600874BFA /* Assets.xcassets */,
 				F964A1712493809600874BFA /* Info.plist */,
 			);
@@ -273,9 +270,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9C962F4249893C800382795 /* FactModel.swift in Sources */,
+				F9C962F4249893C800382795 /* Models.swift in Sources */,
 				F90C21662497657900AAEEAF /* StartViewModel.swift in Sources */,
-				F964A1682493809300874BFA /* ViewController.swift in Sources */,
 				F9C962EE24978E4400382795 /* CatFactDataModel.swift in Sources */,
 				F9602C642498AE060075099B /* ReuseCell.swift in Sources */,
 				F964A1642493809300874BFA /* AppDelegate.swift in Sources */,

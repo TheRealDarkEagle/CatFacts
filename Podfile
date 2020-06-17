@@ -12,7 +12,6 @@ target 'CatFacts' do
   pod 'SnapKit'  
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'Alamofire'
-  pod 'SwiftyJSON'
-	inhibit_all_warnings!
+  pod 'Alamofire', '~> 5.2'
+  inhibit_all_warnings!
 end

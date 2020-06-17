@@ -8,7 +8,6 @@
 
 import RxSwift
 import Alamofire
-import SwiftyJSON
 
 struct StartViewModel {
     // MARK: - Parameter
@@ -23,8 +22,12 @@ struct StartViewModel {
         buttonText.onNext("Just a Sec. Loading Data!")
         AF.request("https://cat-fact.herokuapp.com/facts").responseJSON { response in
             switch response.result {
-            case .success(let data):
-                self.catFactDataModel.data = JSON(data)
+            case .success:
+                do {
+                    self.catFactDataModel.data = try JSONDecoder().decode(AllFacts.self, from: (response.data)!)
+                } catch {
+                    debugPrint("\(error)")
+                }
             case .failure(let error):
                 debugPrint(error)
             }

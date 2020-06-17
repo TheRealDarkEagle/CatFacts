@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 class CatFactDataModel {
-    var data: JSON? {
+    var data: AllFacts? {
         didSet {
             convertDataToModel()
         }
@@ -30,15 +29,14 @@ class CatFactDataModel {
     }
     
     private func convertDataToModel() {
-         guard let dataArray = data?["all"].arrayValue else { return }
-        dataArray.forEach { data in
-            guard let lastName = data["user"]["name"]["last"].string,
-                let firstName = data["user"]["name"]["first"].string,
-                let factId = data["_id"].string,
-                let fact = data["text"].string
-            else { return }
-            let factModel = FactModel(author: "\(lastName) \(firstName)", fact: fact, identifier: factId)
-            facts.append(factModel)
+        guard let convertibaleData = data?.all else { return }
+        convertibaleData.forEach { fact in
+            var author = ""
+            if let user = fact.user {
+                author = "\(user.name.last) \(user.name.first)"
+            }
+            facts.append(FactModel(author: author, fact: fact.text, identifier: fact.identifier))
+            
         }
     }
     

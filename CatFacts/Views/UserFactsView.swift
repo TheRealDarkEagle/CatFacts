@@ -37,7 +37,6 @@ class UserFactsView: UITableViewController {
      userFactsModel?.userFacts.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { _, fact, cell in
             cell.textLabel?.text = "\(fact.fact)"
             cell.textLabel?.numberOfLines = 0
-        print(type(of: cell))
         }.disposed(by: disposebag)
         
      self.title = userFactsModel?.selectedUser
