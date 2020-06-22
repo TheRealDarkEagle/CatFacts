@@ -11,7 +11,11 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-// MARK: - TODO LieblingsFacts Speichern?
+/* MARK: - TODO
+    design anpassen für alle devices
+    landscape to portrait mode implementieren (drehung "abfangen" und constraints neu auslegen)
+    LieblingsFacts Speichern?
+ */
 
 class StartView: UIViewController {
     
@@ -34,13 +38,14 @@ class StartView: UIViewController {
         return label
     }()
     
-    var image: UIImageView = {
+    var catImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "babyKitty"))
-        image.layer.borderWidth = 1
-        image.layer.masksToBounds = false
+        //image.layer.borderWidth = 2
+        //image.layer.masksToBounds = false
         image.layer.borderColor = UIColor.black.cgColor
-        image.layer.cornerRadius = image.frame.height/4
+        image.layer.cornerRadius = image.frame.size.height / 6
         image.clipsToBounds = true
+        //image.layer.masksToBounds = true
         return image
     }()
     
@@ -79,14 +84,12 @@ class StartView: UIViewController {
         
         viewModel.buttonText.distinctUntilChanged().subscribe(onNext: { [weak self] text in
             self?.moreFactsButton.setTitle(text, for: .normal)
-            //self?.moreFactsFromUserButton.isHidden = false
         }).disposed(by: disposeBag)
         
         viewModel.isLoading.subscribe(onNext: { [weak self] isloading in
             if isloading {
                 self?.moreFactsButton.isEnabled = false
                 self?.moreFactsFromUserButton.isEnabled = false
-                
             } else {
                 self?.moreFactsButton.isEnabled = true
                 self?.moreFactsFromUserButton.isEnabled = true
@@ -96,46 +99,92 @@ class StartView: UIViewController {
     
     private func setup() {
         moreFactsFromUserButton.isHidden = true
-        print(moreFactsFromUserButton.isHidden)
         viewModel.requestData()
-        view.addSubview(image)
+        
+        view.addSubview(catImage)
         view.addSubview(catFactLabel)
         view.addSubview(moreFactsButton)
         view.addSubview(catFactAuthor)
         view.addSubview(moreFactsFromUserButton)
-        
-        image.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+    }
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        if UIDevice.current.orientation.isPortrait {
+               setPortraitModeConstraints()
+        } else {
+            setLandscapreModeConstraints()
+        }
+    }
+    
+    private func setLandscapreModeConstraints() {
+        catImage.snp.remakeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).dividedBy(3).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(5)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(5)
+        }
+        catFactLabel.snp.remakeConstraints { make in
+            make.top.equalTo(catImage.snp.top)
+            make.leading.equalTo(catImage.snp.trailing).offset(5)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-5)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+        }
+        moreFactsButton.snp.remakeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(2)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(view.safeAreaLayoutGuide.layoutFrame.height/3)
+            make.leading.equalTo(catImage.snp.trailing).offset(2)
+        }
+        catFactAuthor.snp.remakeConstraints { make in
+            make.top.equalTo(catFactLabel.snp.bottom).offset(-5)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-5)
+            make.bottom.lessThanOrEqualTo(moreFactsButton.snp.top)
+        }
+        moreFactsFromUserButton.snp.remakeConstraints { make in
+            make.top.equalTo(catFactAuthor.snp.top)
+            make.leading.equalTo(catImage.snp.trailing).offset(2)
+            make.trailing.lessThanOrEqualTo(catFactAuthor.snp.leading).offset(-2)
+            make.bottom.equalTo(catFactAuthor.snp.bottom)
+        }
+    }
+    
+    private func setPortraitModeConstraints() {
+        catImage.snp.remakeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(10)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
+            make.height.equalTo(250)
         }
         
-        catFactLabel.snp.makeConstraints { make in
+        catFactLabel.snp.remakeConstraints { make in
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.top.equalTo(image.snp.bottom).offset(50)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-30)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(30)
+            make.top.equalTo(catImage.snp.bottom).offset(50)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-15)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(15)
         }
         
-        moreFactsButton.snp.makeConstraints { make in
+        moreFactsButton.snp.remakeConstraints { make in
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-30)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.width.equalTo(300)
         }
-        catFactAuthor.snp.makeConstraints { make in
+        catFactAuthor.snp.remakeConstraints { make in
             make.top.equalTo(catFactLabel.snp.bottom).offset(5)
             make.trailing.equalTo(catFactLabel.snp.trailing)
             make.leading.equalTo(catFactLabel.snp.leading)
         }
-        moreFactsFromUserButton.snp.makeConstraints { make in
+        moreFactsFromUserButton.snp.remakeConstraints { make in
             make.leading.equalTo(catFactLabel.snp.leading)
-            make.top.equalTo(catFactLabel.snp.bottom)//.offset(5)
+            make.top.equalTo(catFactLabel.snp.bottom)
         }
     }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        view.setNeedsUpdateConstraints()
+    }
     
-    // MARK: - Button Target
+    // MARK: - Button Actions
     @objc func buttonAction() {
         viewModel.publishRandomFact()
     }

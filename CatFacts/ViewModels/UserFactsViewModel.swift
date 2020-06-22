@@ -21,6 +21,6 @@ class UserFactsViewModel {
     }
     
     private func loadUserFacts() {
-        userFacts.onNext(catFactDataModel.getFacts(ofUser: selectedUser))//
+        userFacts.onNext(catFactDataModel.getFacts(ofUser: selectedUser))
     }
 }

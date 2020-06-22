@@ -41,5 +41,6 @@ struct StartViewModel {
         let fact = catFactDataModel.getRandomFact()
         catFact.on(.next(fact))
         buttonText.on(.next("Drück mich für den nächsten Fakt!"))
+        buttonText.onCompleted()
     }
 }

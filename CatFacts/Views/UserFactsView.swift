@@ -31,14 +31,14 @@ class UserFactsView: UITableViewController {
      tableView.register(ReuseCell.self, forCellReuseIdentifier: "Cell")
         
      tableView.rx.setDelegate(self).disposed(by: disposebag)
-     userFactsModel?.userFacts.subscribe(onNext: { [weak self] _ in
+     /*userFactsModel?.userFacts.subscribe(onNext: { [weak self] _ in
             self?.tableView.reloadData()
         }).disposed(by: disposebag)
+         */
      userFactsModel?.userFacts.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { _, fact, cell in
             cell.textLabel?.text = "\(fact.fact)"
             cell.textLabel?.numberOfLines = 0
         }.disposed(by: disposebag)
-        
      self.title = userFactsModel?.selectedUser
     }
 }
