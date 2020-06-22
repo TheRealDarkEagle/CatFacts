@@ -8,6 +8,9 @@
 
 import RxSwift
 import Alamofire
+import PromiseKit
+
+// MARK: - Umabauen zu Klasse
 
 struct StartViewModel {
     // MARK: - Parameter
@@ -20,27 +23,37 @@ struct StartViewModel {
     func requestData() {
         isLoading.onNext(true)
         buttonText.onNext("Just a Sec. Loading Data!")
-        AF.request("https://cat-fact.herokuapp.com/facts").responseJSON { response in
-            switch response.result {
-            case .success:
-                do {
-                    self.catFactDataModel.data = try JSONDecoder().decode(AllFacts.self, from: (response.data)!)
-                } catch {
-                    debugPrint("\(error)")
-                }
-            case .failure(let error):
-                debugPrint(error)
-            }
+       
+        requestDataOfAPI().done { facts in
+            self.catFactDataModel.data = facts
             self.isLoading.onNext(false)
             self.buttonText.on(.next("Drück mich für einen Cat-Fact!"))
         }
-        
+    }
+    
+    private func requestDataOfAPI() -> Promise<AllFacts> {
+        return Promise { seal in
+            AF.request("https://cat-fact.herokuapp.com/facts").responseJSON { response in
+                switch response.result {
+                case .success:
+                    do {
+                        let data = try JSONDecoder().decode(AllFacts.self, from: (response.data)!)
+                        seal.fulfill(data)
+                    } catch {
+                        seal.reject(error)
+                        debugPrint("\(error)")
+                    }
+                case .failure(let error):
+                    debugPrint(error)
+                    seal.reject(error)
+                }
+            }
+        }
     }
     
     func publishRandomFact() {
         let fact = catFactDataModel.getRandomFact()
         catFact.on(.next(fact))
-        buttonText.on(.next("Drück mich für den nächsten Fakt!"))
         buttonText.onCompleted()
     }
 }

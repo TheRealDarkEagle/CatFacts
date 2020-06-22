@@ -14,27 +14,8 @@ class UserFactsViewModel {
     let catFactDataModel: CatFactDataModel
     let userFacts: BehaviorSubject<[FactModel]> = BehaviorSubject(value: [])
     let backgroundImage: BehaviorSubject<String> = BehaviorSubject(value: "")
-    private let imageNames = ["cuteKitty4", "cuteKitty1", "cuteKitty2", "cuteKitty3"]
+    private let imageNames = ["cuteKitty1", "cuteKitty2", "cuteKitty3", "cuteKitty4"]
         
-        init(user: String, dataModel: CatFactDataModel) {
-            selectedUser = user
-            catFactDataModel = dataModel
-            loadUserFacts()
-        }
-        
-        private func loadUserFacts() {
-            userFacts.onNext(catFactDataModel.getFacts(ofUser: selectedUser))
-            backgroundImage.onNext(selectRandomBGImage())
-        }
-        
-        private func selectRandomBGImage() -> String {
-            let name = imageNames[Int.random(in: 0 ..< imageNames.count)]
-            return name
-            
-        }
-    }
-
-    /*
     init(user: String, dataModel: CatFactDataModel) {
         selectedUser = user
         catFactDataModel = dataModel
@@ -43,6 +24,12 @@ class UserFactsViewModel {
     
     private func loadUserFacts() {
         userFacts.onNext(catFactDataModel.getFacts(ofUser: selectedUser))
+        backgroundImage.onNext(selectRandomBGImage())
+    }
+    
+    private func selectRandomBGImage() -> String {
+        let name = imageNames[Int.random(in: 0 ..< imageNames.count)]
+        return name
+        
     }
 }
-*/

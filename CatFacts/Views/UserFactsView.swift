@@ -23,7 +23,6 @@ class UserFactsView: UITableViewController {
    // MARK: - Setup Function
    
    func setup() {
-        //view.backgroundColor = .white
         tableView.delegate = nil
         tableView.dataSource = nil
         tableView.rowHeight = UITableView.automaticDimension

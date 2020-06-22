@@ -59,7 +59,7 @@ class StartView: UIViewController {
     
     var moreFactsFromUserButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Click here for more Facts from:", for: .normal)
+        button.setTitle("Tab für mehr Userfacts von:", for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 250, height: 30)
         button.addTarget(self, action: #selector(moreFromUserAction), for: .touchUpInside)
         return button
@@ -107,11 +107,11 @@ class StartView: UIViewController {
         view.addSubview(catFactAuthor)
         view.addSubview(moreFactsFromUserButton)
     }
-    
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
         if UIDevice.current.orientation.isPortrait {
-               setPortraitModeConstraints()
+            setPortraitModeConstraints()
         } else {
             setLandscapreModeConstraints()
         }
@@ -132,7 +132,7 @@ class StartView: UIViewController {
         }
         moreFactsButton.snp.remakeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(2)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-15)
             make.leading.equalTo(catImage.snp.trailing).offset(2)
         }
         catFactAuthor.snp.remakeConstraints { make in
@@ -172,7 +172,7 @@ class StartView: UIViewController {
         catFactAuthor.snp.remakeConstraints { make in
             make.top.equalTo(catFactLabel.snp.bottom).offset(5)
             make.trailing.equalTo(catFactLabel.snp.trailing)
-            make.leading.equalTo(catFactLabel.snp.leading)
+            make.leading.lessThanOrEqualTo(moreFactsFromUserButton.snp.trailing).offset(-10)
         }
         moreFactsFromUserButton.snp.remakeConstraints { make in
             make.leading.equalTo(catFactLabel.snp.leading)

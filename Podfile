@@ -13,5 +13,6 @@ target 'CatFacts' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'Alamofire', '~> 5.2'
+  pod "PromiseKit", "~> 6.8"
   inhibit_all_warnings!
 end
