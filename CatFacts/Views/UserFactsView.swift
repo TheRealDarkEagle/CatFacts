@@ -12,33 +12,37 @@ import RxSwift
 class UserFactsView: UITableViewController {
     
     // MARK: - Properties
-    var userFactsModel: UserFactsViewModel?
-    let disposebag = DisposeBag()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
-    }
-    
-    // MARK: - Setup Functions
-    
-    func setup() {
-     view.backgroundColor = .white
-     tableView.delegate = nil
-     tableView.dataSource = nil
-     tableView.rowHeight = UITableView.automaticDimension
-     tableView.estimatedRowHeight = 1600
-     tableView.register(ReuseCell.self, forCellReuseIdentifier: "Cell")
-        
-     tableView.rx.setDelegate(self).disposed(by: disposebag)
-     /*userFactsModel?.userFacts.subscribe(onNext: { [weak self] _ in
-            self?.tableView.reloadData()
-        }).disposed(by: disposebag)
-         */
-     userFactsModel?.userFacts.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { _, fact, cell in
-            cell.textLabel?.text = "\(fact.fact)"
-            cell.textLabel?.numberOfLines = 0
-        }.disposed(by: disposebag)
-     self.title = userFactsModel?.selectedUser
-    }
+   var userFactsModel: UserFactsViewModel?
+   let disposebag = DisposeBag()
+   
+   override func viewDidLoad() {
+       super.viewDidLoad()
+       setup()
+   }
+   
+   // MARK: - Setup Function
+   
+   func setup() {
+        //view.backgroundColor = .white
+        tableView.delegate = nil
+        tableView.dataSource = nil
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 1600
+        tableView.register(ReuseCell.self, forCellReuseIdentifier: "Cell")
+        tableView.rx.setDelegate(self).disposed(by: disposebag)
+        self.title = userFactsModel?.selectedUser
+        setupBindings()
+   }
+   
+   private func setupBindings() {
+       userFactsModel?.userFacts.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { _, fact, cell in
+               cell.textLabel?.text = "\(fact.fact)"
+               cell.textLabel?.numberOfLines = 0
+               cell.textLabel?.font = .systemFont(ofSize: 20)
+               cell.backgroundColor = cell.backgroundColor?.withAlphaComponent(0.4)
+           }.disposed(by: disposebag)
+       userFactsModel?.backgroundImage.subscribe(onNext: { [weak self] imgName in
+           self?.tableView.backgroundView = UIImageView(image: UIImage(named: imgName))
+       }).disposed(by: disposebag)
+   }
 }
